@@ -254,11 +254,7 @@ const handlePaymentSuccess = (sale) => {
         console.log('Ocultando mensaje de éxito')
     }, 5000)
 
-    setTimeout(() => {
-        if (customerWindow.value && !customerWindow.value.closed) {
-            customerWindow.value.close()
-        }
-    }, 3000)
+
 }
 
 onMounted(() => {

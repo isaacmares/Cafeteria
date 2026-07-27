@@ -51,7 +51,7 @@ class DashboardController extends Controller
             ->whereDate('created_at', '>=', $startOfMonth)
             ->sum('total');
 
-        // Ventas por día (últimos 7 días)
+
         $salesByDay = [];
         for ($i = 6; $i >= 0; $i--) {
             $date = now()->subDays($i);
@@ -69,11 +69,11 @@ class DashboardController extends Controller
                 'date' => $date->toDateString(),
                 'total' => floatval($daySales),
                 'count' => $dayCount,
-                'label' => $date->locale('es')->isoFormat('dddd') // Ej: "lunes"
+                'label' => $date->locale('es')->isoFormat('dddd')
             ];
         }
 
-        // Productos más vendidos
+
         $topProducts = DB::table('sale_items')
             ->join('sales', 'sale_items.sale_id', '=', 'sales.id')
             ->join('products', 'sale_items.product_id', '=', 'products.id')
@@ -90,7 +90,7 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        // Últimas ventas
+
         $recentSales = Sale::where('tenant_id', $tenantId)
             ->where('status', 'paid')
             ->with('items')
